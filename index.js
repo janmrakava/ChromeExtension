@@ -6,15 +6,22 @@ const ulEl = document.getElementById("ul-el")
 
 inputBtn.addEventListener("click", function() {
   myLeads.push(inputEl.value)
-  console.log(myLeads)
   render()
+  inputEl.value = "";
 })
 
 function render(){
   let listItems = ""
 for (let i = 0; i < myLeads.length; i++) {
   //Create element, set text content, append to ul
-  listItems += "<li>" + myLeads[i] + "</li>"
+//  listItems += "<li><a href=' " + myLeads[i] + "' target='_blank'>" + myLeads[i] + "</li></a>"
+listItems += `
+        <li>
+            <a target='_blank' href='${myLeads[i]}'>
+             ${myLeads[i]}
+             </a>
+        </li>
+            `
 
   //Nebo lze rozdělit do 3 nasledujiich prikazu
   //const li = document.createElement("li")
