@@ -1,44 +1,35 @@
 let myLeads = []
-
-
-
+let oldLeads = []
 const inputEl = document.getElementById("input-el")
-let inputBtn = document.getElementById("input-btn")
-let deleteBtn = document.getElementById("input-dlt")
+const inputBtn = document.getElementById("input-btn")
+const deleteBtn = document.getElementById("input-dlt")
+const saveBtn = document.getElementById("save-btn")
 const ulEl = document.getElementById("ul-el")
 
 const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"))
 
+const tabs = [
+  {url: "https://www.seznam.cz/"}
+]
+
+saveBtn.addEventListener("click", function () {
+  console.log(tabs)
+
+})
+
 if (leadsFromLocalStorage){
   myLeads = leadsFromLocalStorage
-  render();
+  render(myLeads);
 }
-
-deleteBtn.addEventListener("dblclick", function(){
-  console.log("double click");
-  localStorage.clear()
-  myLeads = []
-  render()
-})
-
-inputBtn.addEventListener("click", function() {
-  myLeads.push(inputEl.value)
-  inputEl.value = "";
-  localStorage.setItem("myLeads",JSON.stringify(myLeads))
-  render()
-//  console.log(localStorage.getItem("myLeads"));
-
-})
-
-function render(){
+function render(leads){
   let listItems = ""
-for (let i = 0; i < myLeads.length; i++) {
+for (let i = 0; i < leads.length; i++) {
   //Create element, set text content, append to ul
 //  listItems += "<li><a href=' " + myLeads[i] + "' target='_blank'>" + myLeads[i] + "</li></a>"
 listItems += `
         <li>
-            <a target='_blank' href='${myLeads[i]}'>
-             ${myLeads[i]}
+            <a target='_blank' href='${leads[i]}'>
+             ${leads[i]}
              </a>
         </li>
             `
@@ -50,3 +41,19 @@ listItems += `
 }
   ulEl.innerHTML = listItems
 }
+
+deleteBtn.addEventListener("dblclick", function(){
+  console.log("double click");
+  localStorage.clear()
+  myLeads = []
+  render(myLeads)
+})
+
+inputBtn.addEventListener("click", function() {
+  myLeads.push(inputEl.value)
+  inputEl.value = "";
+  localStorage.setItem("myLeads",JSON.stringify(myLeads))
+  render(myLeads)
+//  console.log(localStorage.getItem("myLeads"));
+
+})
