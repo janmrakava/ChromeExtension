@@ -8,13 +8,16 @@ const ulEl = document.getElementById("ul-el")
 
 const leadsFromLocalStorage = JSON.parse(localStorage.getItem("myLeads"))
 
-const tabs = [
-  {url: "https://www.seznam.cz/"}
-]
-
 saveBtn.addEventListener("click", function () {
-  console.log(tabs)
-
+  //chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+  //})
+                  //active znamena, aktivni zalozku, na ktere se pohybuji.
+                  //currentWindow je pro případ otevření více oken
+  chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+    myLeads.push(tabs[0].url)
+    localStorage.setItem("myLeads",JSON.stringify(myLeads))
+    render(myLeads)
+  })
 })
 
 if (leadsFromLocalStorage){
